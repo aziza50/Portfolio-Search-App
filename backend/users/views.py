@@ -4,13 +4,10 @@ from .serializers import ProfileSerializer, LinkSerializer, FieldSerializer
 from .models import Profile, Link, Field
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 
 
 
 '''Responsible for taking in the request (load model, operations, and etc) --> serialize it into JSON --> HTTPS Response'''
-@method_decorator(csrf_exempt, name='dispatch')
 class ProfileView(APIView):
     #retrieve a profile from database and serialize it into json and send it over as HTTP Response
     def get(self, request, id = None):
@@ -44,8 +41,6 @@ class ProfileView(APIView):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
-@method_decorator(csrf_exempt, name='dispatch')
-
 class AllProfiles(APIView):
     #retrieve from database and serialize it into json and send it over as HTTP Response
     def get(self, request):
