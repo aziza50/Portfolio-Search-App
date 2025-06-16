@@ -26,7 +26,6 @@ class Link(models.Model):
         ('linkedin','LinkedIn'),
         ('personal website', 'Personal Website'),
         ('resume','Resume'),
-        ('other', 'Other'),
         ('github', 'GitHub'),
     ])
     type = models.CharField(max_length = 20, choices = TYPES)
