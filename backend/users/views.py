@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import serializers, status
-from .serializers import ProfileSerializer
+from .serializers import ProfileSerializer, LinkSerializer, FieldSerializer
 from .models import Profile, Link, Field
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -73,7 +73,7 @@ class GetLinks(APIView):
         try:
             profiles = Profile.objects.get(id = id)
             links = profiles.links.all()
-            serializer = FieldSerializer(links, many = True)
+            serializer = LinkSerializer(links, many = True)
             return Response(serializer.data)
         except Profile.DoesNotExist:
             return Response({"error": "Profile not found."}, status = status.HTTP_404_NOT_FOUND)
