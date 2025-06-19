@@ -1,70 +1,58 @@
 from rest_framework import serializers
 from .models import Profile, Link, Field
-
+import json
 
 class LinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Link
         fields = ['link', 'type']
 
-
 class FieldSerializer(serializers.ModelSerializer):
     class Meta:
         model = Field
         fields = ['field']
 
-
 class ProfileSerializer(serializers.ModelSerializer):
-    links = serializers.SerializerMethodField()
-    fields = serializers.SerializerMethodField(method_name="get_fields_data")
-    profile_picture = serializers.ImageField(required=False)
-
+    fields = serializers.SerializerMethodField(method_name='get_fields_data')
+    links = serializers.SerializerMethodField(method_name='get_links_data')
+    profile_picture = serializers.ImageField(required=True)
     class Meta:
         model = Profile
-        fields = ['id', 'name', 'profile_picture', 'bio', 'links', 'fields']
+        fields = ['id', 'name', 'profile_picture', 'bio', 'fields', 'links']
+    
 
-    def to_internal_value(self, data):
-        """
-        Accept flat inputs like:
-        fields=AI&fields=ML&links=https://...&links=https://...
-        And transform into:
-        fields: [{'field': 'AI'}, {'field': 'ML'}]
-        links: [{'link': 'https://...'}]
-        """
-        internal = super().to_internal_value(data)
-        request = self.context.get('request')
-
-        if request and isinstance(request.data, dict):
-            fields = request.data.getlist('fields')
-            links = request.data.getlist('links')
-
-            internal['fields'] = [{'field': f} for f in fields if f.strip()]
-            internal['links'] = [{'link': l} for l in links if l.strip()]
-
-        return internal
-
-    def create(self, validated_data):
-        links_data = validated_data.pop('links', [])
-        fields_data = validated_data.pop('fields', [])
+    def create(self, validated_data):    
 
         profile = Profile.objects.create(
-            name=validated_data.get('name'),
-            bio=validated_data.get('bio'),
-            profile_picture=validated_data.get('profile_picture', None)
+            name=validated_data['name'],
+            bio=validated_data['bio'],
+            profile_picture=validated_data.get('profile_picture')
         )
 
-        for link_data in links_data:
-            link_obj, _ = Link.objects.get_or_create(profile=profile, **link_data)
-            profile.links.add(link_obj)
+        request = self.context.get('request')
+        fields_data = request.data.getlist('fields')
+        fields_data = [{'field': f.strip()} for f in fields_data if f.strip()]
+        links = request.data.get('links')
 
-        for field_data in fields_data:
-            field_obj, _ = Field.objects.get_or_create(**field_data)
+        try:
+            links_data = json.loads(links) if links else []
+        except json.JSONDecodeError:
+            raise serializers.ValidationError({"links": "Invalid JSON format."})
+
+        for link in links_data:
+            Link.objects.create(profile=profile, **link)
+
+        for field_dict in fields_data:
+            field_obj, _ = Field.objects.get_or_create(field=field_dict['field'])
             profile.tags.add(field_obj)
+
+        print(fields_data)
+        print(links_data)
 
         return profile
 
-    def get_links(self, obj):
-        return LinkSerializer(obj.links.all(), many=True).data
-
     def get_fields_data(self, obj):
         return FieldSerializer(obj.tags.all(), many=True).data
+    
+    def get_links_data(self, obj):
+        return LinkSerializer(obj.links.all(), many = True).data

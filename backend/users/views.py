@@ -22,7 +22,9 @@ class ProfileView(APIView):
         return Response(serializer.data)
     #deserialize new profile into DJANGO model, save it in the model, and return the datas JSON
     def post(self, request):
-        serializer = ProfileSerializer(data = request.data)
+        print("DATA:", request.data)
+
+        serializer = ProfileSerializer(data = request.data, context = {'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
@@ -50,35 +52,12 @@ class AllProfiles(APIView):
         serializer = ProfileSerializer(profiles, many = True)
         return Response(serializer.data)
     
-'''Returns all fields pertaining to the user'''
-class GetFields(APIView):
-     #retrieve from database and serialize it into json and send it over as HTTP Response
-    def get(self, request, id = None):
-        if id is not None:
-            try:
-                profiles = Profile.objects.get(id = id)
-                fields = profiles.tags.all()
-                serializer = FieldSerializer(fields, many = True)
-                return Response(serializer.data)
-            except Profile.DoesNotExist:
-                return Response({"error": "Profile not found."}, status=404)
-        else:
-            fields = Field.objects.all()
-            serializer = FieldSerializer(fields, many = True)
-            return Response(serializer.data)
-        
-'''Returns all links pertaining to the user'''
-class GetLinks(APIView):
-    def get(self, request, id = None):
-        try:
-            profiles = Profile.objects.get(id = id)
-            links = profiles.links.all()
-            serializer = LinkSerializer(links, many = True)
-            return Response(serializer.data)
-        except Profile.DoesNotExist:
-            return Response({"error": "Profile not found."}, status = status.HTTP_404_NOT_FOUND)
-        
 class VarFields(APIView):
     def get(self, request):
         fields = [{"value":var, "label":label} for var, label in Field.FIELD_CHOICES]
         return Response(fields)
+    
+class VarLinks(APIView):
+    def get(self, request):
+        links = [{"value":var, "label":label} for var, label in Link.TYPES]
+        return Response(links)

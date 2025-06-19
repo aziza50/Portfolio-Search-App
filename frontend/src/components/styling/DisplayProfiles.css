@@ -1,0 +1,41 @@
+.creators-text{
+    margin-top:20px;
+    font-size:50px;
+    margin-left: 30px;
+}
+
+.custom-line{
+    color: white;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.card-body{
+    background-color: #E6E6E6;
+    border-radius: 30px;
+}
+
+.profile-display{
+    width:200px;
+    height:200px;
+    border-radius: 50%;
+    height:180px;
+    width: 180px;
+    object-fit:cover;
+}
+
+.divide-card{
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,0 +1,44 @@
+.circular-image{
+    border-radius: 50%;
+    height:300px;
+    width: 300px;
+    object-fit:cover;
+
+}
+
+.name {
+    margin-top: 20px;
+    color: white;
+    font-size: 40px;
+}
+
+.container-column {
+  margin-top: 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.strip{
+    color: white;
+    width: 700px;
+}
+
+.bio {
+    color: white;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.fields {
+    color: white;
+    text-align: left;
+}
+
+.display-logos {
+    height: 50px;
+    width: 50px;
+}
