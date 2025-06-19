@@ -3,29 +3,30 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styling/DisplayProfile.css";
 import LinkLogos from "../LinkLogos";
+import { useParams } from "react-router-dom";
 const DisplayProfile = () => {
   const [profileData, setProfileData] = useState(null);
-  const profile_id = localStorage.getItem("profileId");
+  const { id } = useParams();
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const profile_data = await axios.get(
-          `http://127.0.0.1:8000/users/profile/${profile_id}/`
+          `http://127.0.0.1:8000/users/profile/${id}/`
         );
         setProfileData(profile_data.data);
       } catch (error) {}
     };
 
-    if (profile_id) {
+    if (id) {
       fetchProfile();
     }
-  }, [profile_id]);
+  }, [id]);
 
   //Should only render once it got the data
   if (!profileData) {
     return <div>Loading...</div>;
   }
-
+  console.log(profileData);
   return (
     <>
       <div className="container-column">
@@ -36,13 +37,15 @@ const DisplayProfile = () => {
             alt="Profile"
           />
           <h1 className="name">{profileData.name}</h1>
-          {profileData.links.map((link, index) =>
-            link.link && link.type ? (
-              <h3 key={index}>
-                <LinkLogos link={link.link} type={link.type} />{" "}
-              </h3>
-            ) : null
-          )}
+          <div className="display-logos">
+            {profileData.links.map((link, index) =>
+              link.link && link.type ? (
+                <h3 key={index}>
+                  <LinkLogos link={link.link} type={link.type} />{" "}
+                </h3>
+              ) : null
+            )}
+          </div>
         </div>
         <div>
           <h1 className="text-4xl font-bold mb-4 text-white">My Profile</h1>
@@ -51,7 +54,9 @@ const DisplayProfile = () => {
           <div className="fields">
             <h2>Fields I am interested in:</h2>
             {profileData.fields.map((field, index) => (
-              <button key={index}>{field.field}</button>
+              <button className="fieldButton" key={index}>
+                {field.field}
+              </button>
             ))}
           </div>
         </div>

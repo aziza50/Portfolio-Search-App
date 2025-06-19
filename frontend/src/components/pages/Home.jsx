@@ -1,20 +1,25 @@
 import React from "react";
 import Spline from "@splinetool/react-spline";
 import "../styling/Home.css";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  //localStorage.clear("profileId");
   return (
     <div className="home-page">
       <div className="spline-wrapper">
         <Spline scene="https://prod.spline.design/mCZy7js8-124Y2zF/scene.splinecode" />
-        <button type="button" className="explore-button">
-          Explore
-        </button>
         <div className="watermark-overlay"></div>
       </div>
-
-      <section className="info-section d-flex">
+      <div className="container">
+        <Link to="/display-profiles" className="button">
+          <div className="star"></div>
+          <div className="star s2"></div>
+          <div className=" star s3"></div>
+          <span>Explore</span>
+          <div className="moon"></div>
+        </Link>{" "}
+      </div>
+      <section className="info-section d-flex text-white">
         <div style={{ margin: "5px 70px" }}>
           <h2>We Believe</h2>
 

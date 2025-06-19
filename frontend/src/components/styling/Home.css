@@ -1,8 +1,5 @@
 .custom-navbar {
   background-color: #424874;
-}
-
-.custom-navbar {
   font-size: 35px;
   color: #FFFFFF;
   text-decoration: none;
@@ -15,15 +12,13 @@
   padding: 20px !important;
 }
 
-
-
 .spline-wrapper {
   position: relative;
   width: 100%;
   height: 80vh; 
   overflow: hidden;
 }
-
+/* Would never do this is deployment but this is to cover the spline watermark logo */
 .watermark-overlay {
   position: absolute;
   bottom: 15px;  
@@ -36,23 +31,21 @@
   border-radius: 4px; 
 }
 
-.explore-button{
+.explore-button {
   position: absolute;
-  bottom: 100px;  
-  right: 500px;   
-  width: 100px;  
-  height: 60px; 
-  background-color: #BFA054; 
-  pointer-events: none; 
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  background-color: #BFA054;
+  color: #FFFF;
+  border: none;
+  border-radius: 30px;
   z-index: 10; 
-  border-radius: 20px;
-  color: #FFFFFF;
-  font-size: 20px;
-}
-
-.info-section{
-  color: #FFFFFF;
-  
+  text-decoration: none;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 h2{
@@ -63,4 +56,156 @@ h2{
 
 p {
   padding: 20px !important;
+}
+
+/* Button credits: https://codepen.io/FROL_DEV/pen/GRqwgRN */
+
+.container, .button, .moon,.sml, .button span{
+	position: absolute;
+}
+
+.container{
+  position: absolute;
+  top: 75%;
+  left: 45%;
+	margin: auto;
+	width: 200px;
+	height: 200px;
+}
+
+.button:hover .moon{
+	left: 215px;
+	top: -35px;
+	box-shadow: 0px 0px 10px #f2f2f2;
+	transition: all 1s ease-in-out;
+  opacity: 1;
+}
+
+.moon{
+	width: 85px;
+	height: 85px;
+	background: #eee;
+	border-radius: 50%;
+	left: 175px;
+	top:2px;
+	transition:all 1s ease-in-out;
+	z-index: 2;
+  opacity: 0;
+}
+.moon:before{
+	position: absolute;
+	content: '';
+	width: 20px;
+	height: 22px;
+	border-radius: 50%;
+	background: #ccc;
+  top: 25px;
+  left:12px;
+  box-shadow: 10px -20px 0 -4px #ccc, 4px 18px 0 -6px #ccc;
+}
+
+.button{
+	width: 220px;
+	height: 60px;
+	background: #173356 ;
+	box-shadow: 0px 0px 10px #fff;
+	border-radius: 30px;
+	z-index: 4;
+  top:45px;
+  left:-20px;
+	transition: all 1s ease-in-out;
+  text-transform: uppercase;
+}
+.button:hover {
+	transition: all 1s ease-in-out;
+	box-shadow: 0px 2px 18px #eee;
+}
+.button:hover .star{
+	animation: twinkle 1s infinite;
+}
+
+.star{
+	position: absolute;
+	width: 2px;
+	height: 2px;
+	background: #fff;
+	border-radius: 50%;
+	z-index: 2;
+	opacity: 0;
+	top: 5px;
+	left: 10px;
+	box-shadow: 30px 20px 0px #fff, 
+				40px 60px 0px #fff
+				,40px 60px 0px #fff,
+				80px 50px 0px #fff,
+				120px 20px 0px #fff,
+				110px 60px 0px #fff,
+				120px 5px 0px #fff,
+				200px 5px 0px #fff,
+				210px 25px 0px #fff,
+				230px 50px 0px #fff,
+				170px 90px 0px #fff,
+				190px 74px 0px #fff,
+				140px 80px 0px #fff,
+				20px 90px 0px #fff,
+				40px 760px 0px #fff,
+				60px 70px 0px #fff,
+				80px 80px 0px #fff,
+				160px 20px 0px #fff;
+}
+.s2 {
+	position: absolute;
+	height: 3px ;
+	width: 3px;
+	border-radius: 50%;
+	background: #fff;
+	animation-delay: 0.5s;
+	box-shadow: 60px 5px 0px #fff, 
+				40px 30px 0px #fff,
+				10px 40px 0px #fff,
+				90px 40px 0px #fff,
+				100px 10px 0px #fff,
+				110px 5px 0px #fff,
+				7px 20px 0px #fff,
+				200px 50px 0px #fff,
+				180px 80px 0px #fff,
+				190px 15px 0px #fff;
+	top: 10px;
+}
+.s3{
+	position: absolute;
+	height: 1px ;
+	width: 1px;
+	border-radius: 50%;
+	background: #fff;
+	animation-delay: 0.9s;
+	box-shadow: 30px 10px 0px #fff,
+				 80px -20px 0px #fff
+				,120px 10px 0px #fff,
+				12px 50px 0px #fff,
+				25px 190px 0px #fff,
+				65px 840px 0px #fff,
+				125px 70px 0px #fff,
+				160px 20px 0px #fff,
+				160px -7px 0px #fff,
+				200px -18px 0px #fff,
+				225px -38px 0px #fff,
+				240px -40px 0px #fff;
+	top: 30px;
+}
+@keyframes twinkle{
+	50%{
+		opacity: 1;
+	}
+}
+.button span{
+	text-align:center;
+	font-size: 40px;
+	left: 20px;
+	line-height: 70px;
+	margin: 3px auto;
+	transition: all 1px ease-in-out;
+	background: -webkit-linear-gradient(#d9d9d9,  #cccccc);
+	-webkit-background-clip:text;
+	-webkit-text-fill-color:transparent;
 }

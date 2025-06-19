@@ -1,17 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const Header = () => {
-  let content;
-  let text;
-
-  if (localStorage.getItem("profileId")) {
-    content = "/display-profile";
-    text = "Profile";
-  } else {
-    content = "/create-profile";
-    text = "Create Profile";
-  }
-  console.log(localStorage.getItem("profileId"));
+const Header = ({ profileId }) => {
+  const content = profileId ? `/profile/${profileId}` : "/create-profile";
+  console.log(profileId);
+  const text = profileId ? "Profile" : "Create Profile";
   return (
     <div>
       <nav className="navbar navbar-expand-lg custom-navbar">

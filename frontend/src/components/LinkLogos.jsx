@@ -4,7 +4,7 @@ const LinkLogos = ({ link, type }) => {
   if (type === "linkedin") {
     return (
       <a href={link}>
-        <img className="display-logos" src="/assets/linkedInLogo.webp"></img>
+        <img className="display-logos" src="/assets/linkedInLogo.png"></img>
       </a>
     );
   } else if (type === "instagram") {
@@ -16,15 +16,27 @@ const LinkLogos = ({ link, type }) => {
   } else if (type === "facebook") {
     return (
       <a href={link}>
-        <img className="display-logos" src="/assets/facebookLog.png"></img>
+        <img className="display-logos" src="/assets/facebookLogo.png"></img>
       </a>
     );
   } else if (type === "personal website") {
-    return <a href={link}>Personal Website</a>;
+    return (
+      <a href={link}>
+        <img className="display-logos" src="/assets/personalWebsite.png"></img>
+      </a>
+    );
   } else if (type === "resume") {
-    return <a href={link}>Resume</a>;
+    return (
+      <a href={link}>
+        <img className="display-logos" src="/assets/resumeLogo.png"></img>
+      </a>
+    );
   } else if (type === "github") {
-    return <img className="display-logos" src="/assets/gitLogo.png"></img>;
+    return (
+      <a href={link}>
+        <img className="display-logos" src="/assets/gitLogo.png"></img>
+      </a>
+    );
   }
 };
 

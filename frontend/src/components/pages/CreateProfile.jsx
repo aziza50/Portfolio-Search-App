@@ -95,11 +95,6 @@ const CreateProfile = () => {
       return;
     }
 
-    //const allLinksEmpty = linkInputs.every((link) => link.trim() === "");
-    //if (allLinksEmpty) {
-    //alert("Please enter at least one link.");
-    //return;
-    //}
     selectedFields.forEach((field) => payload.append("fields", field.value));
     const validLinks = linkInputs.filter(
       (link) => link.link.trim() !== "" && link.type.trim() !== ""
@@ -119,18 +114,10 @@ const CreateProfile = () => {
       );
       const profileId = response.data.id;
       localStorage.setItem("profileId", profileId);
-      navigate("/profile/${profileId}");
-      alert("Profile created!");
-      console.log(profileId);
+      navigate(`/profile/${profileId}`);
     } catch (err) {
       console.error("Submission error:", err);
     }
-
-    console.log("Final links:", JSON.stringify(validLinks));
-    console.log(
-      "Final fields:",
-      selectedFields.map((f) => f.value)
-    );
   };
 
   //Used ChatGpt to better render an image behind the form//
@@ -254,7 +241,7 @@ const CreateProfile = () => {
         <div className="mb-3">
           {linkInputs.map((input, index) => (
             <div key={index} className="mb-2">
-              <label className="form-label">
+              <label className="form-label links">
                 Link {index + 1}:
                 <input
                   type="url"
@@ -283,21 +270,7 @@ const CreateProfile = () => {
               </label>
             </div>
           ))}
-
-          {linkInputs.length < 3 && (
-            <button
-              type="button"
-              className="btn btn-outline-light mb-3"
-              style={{ margin: "15px" }}
-              onClick={() =>
-                setLinkInputs([...linkInputs, { link: "", type: "" }])
-              }
-            >
-              Add Another Link
-            </button>
-          )}
         </div>
-
         {linkInputs.length < 3 && (
           <button
             type="button"
