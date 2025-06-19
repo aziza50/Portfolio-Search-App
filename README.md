@@ -18,4 +18,4 @@ Because AI is really good at css, I would ask it to style the grid to make it ni
 boiler-plate code. I've also used it as a guide to help me write serializers code on the backend as it was confusing and I've never worked with 
 Django REST framework before. I've also used AI to navigate react hooks and ensure the states were set correctly. 
 
-Though AI is very familiar with React and Django, it sometimes makes mistakes when I input error outputs from the console. Many errors may be the root cause of the error so a lot of times I had to go back and see what data the front-end was sending and see if it matches the serializer expected input for example. 
+Though AI is very familiar with React and Django, it sometimes makes mistakes when I input error outputs from the console. Many factors may be the cause of the error so I frequently had to go back and see what data the front-end was sending and see if it matches the serializer expected input for example. 
